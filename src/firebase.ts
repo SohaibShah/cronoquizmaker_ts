@@ -72,58 +72,6 @@ const getUserFromId = async (uid: string): Promise<AppUser | null> => {
     return null
 }
 
-// console.log(`res: ${JSON.stringify(obtainedUser)}`)
-// if (obtainedUser) {
-//     const user = obtainedUser
-//     const checkIfUserUidExistsQ = query(collection(db, collections.users), where("uid", "==", user?.uid))
-//     const uidDocs = await getDocs(checkIfUserUidExistsQ)
-
-//     const checkIfUserEmailExistsQ = query(collection(db, collections.users), where("email", "==", user?.email))
-//     const emailDocs = await getDocs(checkIfUserEmailExistsQ)
-
-//     if (uidDocs.docs.length === 0 && emailDocs.docs.length === 0) {
-//         const appUser: AppUser = {
-//             uid: user ? user.uid : 'undefined',
-//             name: user ? user.displayName : null,
-//             email: user ? user.email : null,
-//             photoImgUrl: user ? user.photoURL : null,
-//             dateAccCreated: serverTimestamp(),
-//             publishedQuizzes: [],
-//             savedQuizzes: []
-//         }
-//         localStorage.setItem('user', JSON.stringify(appUser))
-//         await setDoc(doc(db, collections.users, appUser.uid), appUser).then(() => console.log('CREATED NEW USER'))
-//         return 'CREATED NEW USER'
-//     } else if (uidDocs.docs.length > 0) {
-//         const appUserData = uidDocs.docs[0].data() as AppUser
-//         const appUser: AppUser = {
-//             uid: user ? user.uid : 'undefined',
-//             name: appUserData.name ?? user.displayName ?? null,
-//             email: user.email ?? appUserData.email ?? null,
-//             photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-//             dateAccCreated: serverTimestamp(),
-//             publishedQuizzes: appUserData.publishedQuizzes ?? [],
-//             savedQuizzes: appUserData.savedQuizzes ?? []
-//         }
-//         localStorage.setItem('user', JSON.stringify(appUser))
-//         return 'CREATED NEW USER'
-//     } else {
-//         const appUserData = emailDocs.docs[0].data() as AppUser
-//         const appUser: AppUser = {
-//             uid: user ? user.uid : 'undefined',
-//             name: appUserData.name ?? user.displayName ?? null,
-//             email: user.email ?? appUserData.email ?? null,
-//             photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-//             dateAccCreated: serverTimestamp(),
-//             publishedQuizzes: appUserData.publishedQuizzes ?? [],
-//             savedQuizzes: appUserData.savedQuizzes ?? []
-//         }
-//         localStorage.setItem('user', JSON.stringify(appUser))
-//         return 'CREATED NEW USER'
-//     }
-// }
-
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -134,74 +82,6 @@ const googleProvider = new GoogleAuthProvider()
 const logInWithGoogle = async () => {
     try {
         await signInWithRedirect(auth, googleProvider)
-
-        // const result = await getRedirectResult(auth, googleProvider)
-
-        // console.log(`obtainedUserResult: ${result}`)
-        // if (result) {
-        //     const obtainedUser = result.user
-        //     console.log(`user: ${JSON.stringify(obtainedUser)}`)
-        //     if (obtainedUser) {
-        //         const user = obtainedUser
-        //         const checkIfUserUidExistsQ = query(collection(db, collections.users), where("uid", "==", user?.uid))
-        //         const uidDocs = await getDocs(checkIfUserUidExistsQ)
-
-        //         // const checkIfUserEmailExistsQ = query(collection(db, collections.users), where("email", "==", user?.email))
-        //         // const emailDocs = await getDocs(checkIfUserEmailExistsQ)
-
-        //         // console.warn(`emailDocs: ${JSON.stringify(emailDocs)}`)
-
-        //         console.log('ran user check and returned true')
-
-        //         if (uidDocs.docs.length < 1
-        //             // && emailDocs.docs.length < 1
-        //         ) {
-        //             console.log('ran uidDocs and emailDocs check and verified equal to zero')
-        //             const appUser: AppUser = {
-        //                 uid: user ? user.uid : 'undefined',
-        //                 name: user ? user.displayName : null,
-        //                 email: user ? user.email : null,
-        //                 photoImgUrl: user ? user.photoURL : null,
-        //                 dateAccCreated: serverTimestamp(),
-        //                 publishedQuizzes: [],
-        //                 savedQuizzes: []
-        //             }
-        //             localStorage.setItem('user', JSON.stringify(appUser))
-        //             console.log('created local storage user')
-        //             await addDoc(collection(db, collections.users), appUser).then(() => console.log('CREATED NEW USER'))
-        //             // setUser(fetchUser())
-        //         } else if (uidDocs.docs.length > 0) {
-        //             console.log('uidDocs check returned more than 0')
-        //             const appUserData = uidDocs.docs[0].data() as AppUser
-        //             const appUser: AppUser = {
-        //                 uid: user ? user.uid : 'undefined',
-        //                 name: appUserData.name ?? user.displayName ?? null,
-        //                 email: user.email ?? appUserData.email ?? null,
-        //                 photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-        //                 dateAccCreated: serverTimestamp(),
-        //                 publishedQuizzes: appUserData.publishedQuizzes ?? [],
-        //                 savedQuizzes: appUserData.savedQuizzes ?? []
-        //             }
-        //             localStorage.setItem('user', JSON.stringify(appUser))
-        //             // setUser(fetchUser())
-        //         }
-        //         // else if (emailDocs.docs.length > 0) {
-        //         //     console.log('emailDocs check returned more than 0')
-        //         //     const appUserData = emailDocs.docs[0].data() as AppUser
-        //         //     const appUser: AppUser = {
-        //         //         uid: user ? user.uid : 'undefined',
-        //         //         name: appUserData.name ?? user.displayName ?? null,
-        //         //         email: user.email ?? appUserData.email ?? null,
-        //         //         photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-        //         //         dateAccCreated: serverTimestamp(),
-        //         //         publishedQuizzes: appUserData.publishedQuizzes ?? [],
-        //         //         savedQuizzes: appUserData.savedQuizzes ?? []
-        //         //     }
-        //         //     localStorage.setItem('user', JSON.stringify(appUser))
-        //         //     // setUser(fetchUser())
-        //         // }
-        //     }
-        // }
     } catch (error: any) {
         console.log(JSON.stringify(error));
         return (error.message as string).slice(22, -2).replaceAll("-", " ").toUpperCase();
