@@ -126,18 +126,18 @@ const App = () => {
     console.warn(`ran check user`)
     const userUidQ = query(collection(db, collections.users), where("uid", "==", user?.uid))
     const uidDocs = await getDocs(userUidQ)
+    const appUserData = uidDocs.docs[0].data() as AppUser
 
     var appUser: AppUser = {
       uid: user ? user.uid : 'undefined',
-      name: user ? user.displayName : null,
-      email: user ? user.email : null,
-      photoImgUrl: user ? user.photoURL : null,
+      name: appUserData.name ?? user.displayName ?? null,
+      email: user.email ?? appUserData.email ?? null,
+      photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
       dateAccCreated: serverTimestamp(),
-      publishedQuizzes: [],
-      savedQuizzes: []
+      publishedQuizzes: appUserData.publishedQuizzes ?? [],
+      savedQuizzes: appUserData.savedQuizzes ?? []
     }
     if (localUser && localUser.uid === appUser.uid && localUser.email === appUser.email && localUser.photoImgUrl === appUser.photoImgUrl && uidDocs.docs.length > 0) {
-      const appUserData = uidDocs.docs[0].data() as AppUser
       appUser = {
         uid: user ? user.uid : 'undefined',
         name: appUserData.name ?? user.displayName ?? null,
@@ -159,7 +159,6 @@ const App = () => {
         await setDoc(doc(db, collections.users, user.uid), appUser).then(() => console.log('CREATED NEW APP USER'))
       } else {
         console.log('uidDocs check returned more than 0')
-        const appUserData = uidDocs.docs[0].data() as AppUser
         appUser = {
           uid: user ? user.uid : 'undefined',
           name: appUserData.name ?? user.displayName ?? null,
