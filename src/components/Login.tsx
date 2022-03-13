@@ -23,8 +23,8 @@ import { serverTimestamp } from 'firebase/firestore'
 import { usePrevious } from '../utils/functions'
 
 export interface LoginProps {
-  localUser: AppUser | undefined;
-  setUser: React.Dispatch<React.SetStateAction<AppUser | undefined>>;
+  localUser: AppUser | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<AppUser | null | undefined>>;
   // targetLocation?: string;
 }
 

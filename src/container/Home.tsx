@@ -20,7 +20,7 @@ import PlayQuiz from '../components/PlayQuiz';
 
 export interface HomeProps {
   user: AppUser
-  changeUser: React.Dispatch<React.SetStateAction<AppUser | undefined>>
+  changeUser: React.Dispatch<React.SetStateAction<AppUser | null | undefined>>
 }
 
 const Home = ({ user, changeUser }: HomeProps) => {

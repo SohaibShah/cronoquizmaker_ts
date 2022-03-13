@@ -18,7 +18,7 @@ const isActiveStyle = "flex items-center px-5 gap-3 font-extrabold border-r-2 bo
 export interface SidebarProps {
     setSidebarVisible?: React.Dispatch<React.SetStateAction<boolean>>;
     user: AppUser;
-    setUser: React.Dispatch<React.SetStateAction<AppUser | undefined>>;
+    setUser: React.Dispatch<React.SetStateAction<AppUser | null | undefined>>;
 }
 
 const Sidebar = ({ setSidebarVisible, setUser, user }: SidebarProps) => {
