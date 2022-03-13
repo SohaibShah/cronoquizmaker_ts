@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'),
+  url('./fonts/Lato/Lato-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'),
+  url('./fonts/Lato/Lato-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'),
+  url('./fonts/Lato/Lato-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: 900;
+}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
@@ -9,7 +32,7 @@ body::-webkit-scrollbar {
   }
 
 body {
-    font-family: 'Lato', serif;
+    font-family: 'Lato', sans-serif;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     /* Hide scrollbar but keep effect. */
     -ms-overflow-style: none;  /* IE and Edge */
