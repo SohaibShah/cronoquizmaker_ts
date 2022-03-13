@@ -30,11 +30,14 @@ const Navbar = ({ searchTerm, setSearchTerm, user }: NavbarProps) => {
                 />
             </div>
             <div className="flex gap-3">
-                {user.photoImgUrl && <Link
+                {user && <Link
                     to={`user-profile/${user?.uid}`}
                     className="hidden md:block"
                 >
-                    <img src={user.photoImgUrl ?? undefined} alt="user-image" className="w-14 h-12 rounded-lg bg-white" />
+                    <img src={user.photoImgUrl ?? 
+                        // `https://via.placeholder.com/500x1000?text=${user.name}`
+                        `https://img.icons8.com/ios-glyphs/344/test-account.png`
+                        } alt="user-image" className="w-14 h-12 rounded-lg bg-white" />
                 </Link>}
                 <Link
                     to='/edit-quiz'

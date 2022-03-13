@@ -222,7 +222,10 @@ const UserProfile = () => {
                 alt="user-pic"
               /> : <img
                 className="rounded-full w-20 h-20 -mt-10 shadow-xl object-cover bg-white"
-                src={`https://via.placeholder.com/500x1000?text=${user.name}`}
+                src={
+                  // `https://via.placeholder.com/500x1000?text=${user.name}`
+                  `https://img.icons8.com/ios-glyphs/344/test-account.png`
+                }
                 alt="user-pic"
               />}
               <h1 className="font-bold text-3xl text-center mt-3">{user.name}</h1>
