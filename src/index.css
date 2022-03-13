@@ -22,8 +22,8 @@
   font-family: 'Lato';
   src: local('Lato'),
   url('./fonts/Lato/Lato-Black.ttf') format('truetype');
-  font-weight: normal;
-  font-style: 900;
+  font-weight: 900;
+  font-style: normal;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

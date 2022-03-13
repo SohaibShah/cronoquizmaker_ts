@@ -194,7 +194,7 @@ const Login = ({ localUser, setUser }: LoginProps) => {
                 value={password}
                 className="p-2 w-full bg-secondaryColor ouline-none focus:outline-none caret-logoBlue"
               />
-              {passState === "text" ? <AiOutlineEyeInvisible fontSize={21} className="ml-1 text-white cursor-pointer" onClick={() => setPassState("password")} /> : <AiOutlineEye fontSize={21} className="ml-1 text-white cursor-pointer" onClick={() => setPassState("text")} />}
+              {passState === "text" ? <AiOutlineEyeInvisible fontSize={21} className="ml-1 cursor-pointer" onClick={() => setPassState("password")} /> : <AiOutlineEye fontSize={21} className="ml-1 cursor-pointer" onClick={() => setPassState("text")} />}
             </div>}
             <div className="w-full text-right">
               {!onRegisterScreen && !onResetScreen && <p className="font-light -mt-1 mr-2 hover:text-gray-400 cursor-pointer" onClick={(e) => { setOnRegisterScreen(false); setOnResetScreen(true) }}>Forgot Password?</p>}
