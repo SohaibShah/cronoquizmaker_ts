@@ -364,7 +364,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
 
                 setQuestions(newQuestions)
               }}
-              className="bg-red-500 text-white text-lg p-2 px-3 rounded-full outline-none"
+              className="bg-red-500 text-white text-lg p-2 px-3 rounded-lg outline-none"
             >
               Delete Question
             </button>
@@ -379,7 +379,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
 
                 setQuestions(newQuestions)
               }}
-              className="bg-logoBlue text-white text-lg p-2 px-3 rounded-full outline-none"
+              className="bg-logoBlue text-white text-lg p-2 px-3 rounded-lg outline-none"
             >
               Add Option
             </button>
@@ -387,19 +387,19 @@ const EditQuiz = ({ user }: EditQuizProps) => {
         </div>
       ))}
 
-      <div className="flex justify-between items-center mt-5 w-full lg:w-4/5">
-        <div className="flex justify-center gap-4">
+      <div className="flex flex-col lg:flex-row justify-center lg:justify-between gap-4 items-center mt-5 w-full lg:w-4/5">
+        <div className="flex flex-col lg:flex-row justify-center gap-4">
           <button
             type='button'
             onClick={saveAndPublishQuiz}
-            className="bg-logoGreen text-black text-xl font-bold p-3 px-4 rounded-full outline-none"
+            className="bg-logoGreen text-black text-xl font-bold p-3 px-4 rounded-lg outline-none"
           >
             Save And Publish Quiz
           </button>
           <button
             type='button'
             onClick={saveAsPrivateQuiz}
-            className="bg-black text-white text-xl font-bold p-3 px-4 rounded-full outline-none"
+            className="bg-black text-white text-xl font-bold p-3 px-4 rounded-lg outline-none"
           >
             Save As Private Quiz
           </button>
@@ -420,7 +420,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
 
             setQuestions(newQuestions)
           }}
-          className="bg-logoBlue text-white text-xl font-bold p-3 px-4 rounded-full outline-none"
+          className="bg-logoBlue text-white text-xl font-bold p-3 px-4 rounded-lg outline-none"
         >
           Add Question
         </button>
