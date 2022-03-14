@@ -46,11 +46,7 @@ const Login = ({ localUser, setUser }: LoginProps) => {
   const navigate = useNavigate();
 
   const targetLocation = useParams()
-  // const prevTargetLocation = usePrevious(targetLocation)
   const [prevTargetLocation, setPrevTargetLocation] = useState(targetLocation)
-
-  console.log(`targetLocation: ${JSON.stringify(targetLocation)}`)
-  console.log(`prevTargetLocation: ${JSON.stringify(prevTargetLocation)}`)
 
   useEffect(() => {
     if (error) {

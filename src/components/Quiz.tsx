@@ -84,14 +84,14 @@ const Quiz = ({ quiz }: QuizProps) => {
           <div
             onMouseEnter={() => setQuizHovered(true)}
             onMouseLeave={() => setQuizHovered(false)}
-            onClick={() => navigate(`/quiz-detail/${quiz.quizId}`)}
+            onClick={() => quiz.private ? navigate(`/quiz-detail/private/${quiz.quizId}`) : navigate(`/quiz-detail/${quiz.quizId}`)}
             className="relative cursor-pointer w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
           >
             <img src={quiz.quizImageUrl} alt="quiz-image" className="rounded-lg w-full bg-white min-h-[150px] object-contain" />
             {quizHovered ? (
               <div className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50" style={{ height: '100%' }}>
                 <div className="flex items-center justify-between">
-                  {alreadySaved ? (
+                {alreadySaved ? (
                     <button onClick={(e) => {
                       e.stopPropagation()
                       handleSaveQuiz()

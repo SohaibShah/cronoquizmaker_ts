@@ -28,7 +28,8 @@ import {
     arrayUnion,
     arrayRemove,
     FieldValue,
-    deleteDoc
+    deleteDoc,
+    FirestoreSettings
 } from 'firebase/firestore'
 import {
     getStorage,
