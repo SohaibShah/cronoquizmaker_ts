@@ -26,6 +26,7 @@ export const Quizzes = ({ user }: QuizzesProps) => {
           <Route path='/quiz-detail/private/:privateQuizId' element={<QuizDetail />} />
           <Route path='/edit-quiz' element={<EditQuiz user={user && user}/>} />
           <Route path='/edit-quiz/:quizId' element={<EditQuiz user={user && user} />} />
+          <Route path='/edit-quiz/private' element={<EditQuiz user={user && user} />} />
           <Route path='/edit-quiz/private/:privateQuizId' element={<EditQuiz user={user && user} />} />
           
           {/* <Route path='/search' element={<Search searchTerm={searchTerm} />} /> */}

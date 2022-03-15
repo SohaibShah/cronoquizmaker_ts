@@ -67,9 +67,13 @@ const Home = ({ user, changeUser }: HomeProps) => {
         <Routes>
           <Route path='/user-profile/:userId' element={<UserProfile />} />
           <Route path='/user-profile' element={<UserProfile />} />
-          <Route path="/*" element={<Quizzes user={user && user} />} />
-          <Route path='/play-quiz/:quizId' element={<PlayQuiz />} />          
+
+          <Route path='/play-quiz' element={<PlayQuiz />} />  
+          <Route path='/play-quiz/:quizId' element={<PlayQuiz />} />    
+          <Route path='/play-quiz/private' element={<PlayQuiz />} />      
           <Route path='/play-quiz/private/:privateQuizId' element={<PlayQuiz />} />
+
+          <Route path="/*" element={<Quizzes user={user && user} />} />
         </Routes>
       </div>
 

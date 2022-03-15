@@ -302,7 +302,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
       {questions.length > 0 && <h1 className="font-bold text-3xl font-black mt-3 w-full lg:w-4/5">Questions</h1>}
 
       {questions.map((question, questionIndex) => (
-        <div key={questionIndex} className="gap-3 flex flex-col justify-center items-center bg-white lg-p-5 p-3 lg:w-4/5 w-full rounded-lg shadow-md">
+        <div key={questionIndex} className="gap-3 flex flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5 w-full rounded-xl shadow-md">
           <div className="flex w-full items-center">
             <p className=" text-2xl font-bold">{questionIndex + 1 + '. '}</p>
             <input
@@ -318,7 +318,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
               className="w-full outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2"
             />
           </div>
-          <div className="gap-3 w-full">
+          <div className="flex flex-col gap-3 w-full">
             {question.options.map((option, optionIndex) => {
               return (
                 <div key={optionIndex} className="flex w-full items-center">

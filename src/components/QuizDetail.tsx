@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { BsBookmarkPlus, BsFillBookmarkCheckFill, BsFillEmojiDizzyFill, BsPlayFill } from 'react-icons/bs'
 import { GoPencil } from 'react-icons/go'
 import { Link, useParams } from 'react-router-dom'
-import { collections, db, saveQuiz, unsaveQuiz } from '../firebase'
+import { auth, collections, db, saveQuiz, unsaveQuiz } from '../firebase'
 import AppUser from '../models/AppUser'
 import { QuizModel } from '../models/QuizModel'
 import { fetchUser } from '../utils/fetchUser'
@@ -18,7 +18,7 @@ const QuizDetail = () => {
   const [quizzes, setQuizzes] = useState<QuizModel[] | undefined>(undefined)
   const [quizDetail, setQuizDetail] = useState<QuizModel | undefined>()
   const [quizCreator, setQuizCreator] = useState<AppUser | undefined>()
-  const currentUser = fetchUser()
+  const currentUser = auth.currentUser
 
   const [alreadySaved, setAlreadySaved] = useState(false)
   const [savingQuiz, setSavingQuiz] = useState(false)
