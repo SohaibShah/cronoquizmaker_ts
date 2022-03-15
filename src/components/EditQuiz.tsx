@@ -323,7 +323,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
               return (
                 <div key={optionIndex} className="flex w-full items-center">
                   <div
-                    className='m-2 rounded-full cursor-pointer'
+                    className='m-2 rounded-full cursor-pointer hover:opacity-75 hover:shadow-md'
                     onClick={() => {
                       let newQuestions = [...questions]
                       newQuestions[questionIndex].options[optionIndex].correct = !option.correct;
@@ -345,7 +345,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
                     placeholder="Option text..."
                     className="outline-none flex-1 text-base sm:text-lg border-b-2 border-gray-200 p-2"
                   />
-                  <AiFillDelete color='red' fontSize={31} className="m-2 cursor-pointer" onClick={() => {
+                  <AiFillDelete color='red' fontSize={31} className="m-2 cursor-pointer hover:opacity-75 hover:shadow-md" onClick={() => {
                     let newQuestions = [...questions]
                     newQuestions[questionIndex].options.splice(optionIndex, 1)
 
@@ -364,7 +364,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
 
                 setQuestions(newQuestions)
               }}
-              className="bg-red-500 text-white text-lg p-2 px-3 rounded-lg outline-none"
+              className="bg-red-500 text-white text-lg p-2 px-3 rounded-lg outline-none hover:opacity-75 hover:shadow-md"
             >
               Delete Question
             </button>
@@ -379,7 +379,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
 
                 setQuestions(newQuestions)
               }}
-              className="bg-logoBlue text-white text-lg p-2 px-3 rounded-lg outline-none"
+              className="bg-logoBlue text-white text-lg p-2 px-3 rounded-lg outline-none hover:opacity-75 hover:shadow-md"
             >
               Add Option
             </button>
@@ -392,14 +392,14 @@ const EditQuiz = ({ user }: EditQuizProps) => {
           <button
             type='button'
             onClick={saveAndPublishQuiz}
-            className="bg-logoGreen text-black text-xl font-bold p-3 px-4 rounded-lg outline-none"
+            className="bg-logoGreen text-black text-xl font-bold p-3 px-4 rounded-lg outline-none hover:opacity-75 hover:shadow-md"
           >
             Save And Publish Quiz
           </button>
           <button
             type='button'
             onClick={saveAsPrivateQuiz}
-            className="bg-black text-white text-xl font-bold p-3 px-4 rounded-lg outline-none"
+            className="bg-black text-white text-xl font-bold p-3 px-4 rounded-lg outline-none hover:opacity-75 hover:shadow-md"
           >
             Save As Private Quiz
           </button>
@@ -420,7 +420,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
 
             setQuestions(newQuestions)
           }}
-          className="bg-logoBlue text-white text-xl font-bold p-3 px-4 rounded-lg outline-none"
+          className="bg-logoBlue text-white text-xl font-bold p-3 px-4 rounded-lg outline-none hover:opacity-75 hover:shadow-md"
         >
           Add Question
         </button>

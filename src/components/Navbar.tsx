@@ -32,7 +32,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }: NavbarProps) => {
             <div className="flex gap-3">
                 {user && <Link
                     to={`user-profile/${user?.uid}`}
-                    className="hidden md:block"
+                    className="hidden md:block opacity-100 hover:opacity-75 hover:shadow-md"
                 >
                     <img src={user.photoImgUrl ?? 
                         // `https://via.placeholder.com/500x1000?text=${user.name}`
@@ -41,7 +41,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }: NavbarProps) => {
                 </Link>}
                 <Link
                     to='/edit-quiz'
-                    className="bg-logoGreen text-dark rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center"
+                    className="bg-logoGreen text-dark rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center opacity-100 hover:opacity-75 hover:shadow-md"
                 >
                     <IoMdAdd fontSize={30} />
                 </Link>

@@ -18,8 +18,9 @@ import { updateCurrentUser } from 'firebase/auth'
 
 const randomImage = 'https://source.unsplash.com/1600x900/?nature,photography,technology'
 
-const activeBtnStyles = "bg-logoBlue text-white font-bold p-2 px-3 rounded-full outline-none"
-const notActiveBtnStyles = "bg-primary mr-4 text-black font-bold p-2 rounded-full outline-none"
+const activeBtnStyles = `bg-logoBlue text-white font-bold p-2 px-3 rounded-t-lg outline-none` 
+// + ` border-[2px] border-b-0 border-black`
+const notActiveBtnStyles = "bg-primary text-black font-bold p-2 px-3 rounded-t-lg outline-none hover:opacity-75"
 
 const UserProfile = () => {
 

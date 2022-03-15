@@ -157,7 +157,7 @@ const Quiz = ({ quiz }: QuizProps) => {
           </div>
           <Link
             to={`user-profile/${quiz.creatorUid}`}
-            className="flex gap-2 mt-2 items-center"
+            className="flex gap-2 mt-2 items-center hover:opacity-75"
           >
             {quizCreator?.photoImgUrl && <img src={quizCreator?.photoImgUrl ? quizCreator.photoImgUrl!! : undefined} alt="creator-image" className="w-8 h-8 rounded-full object-cover" />}
             <p className="font-semibold">{quizCreator?.name}</p>

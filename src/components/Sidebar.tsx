@@ -75,7 +75,7 @@ const Sidebar = ({ setSidebarVisible, setUser, user }: SidebarProps) => {
                 <div className="flex my-5 mb-3 mx-3 justify-center gap-2">
                     <Link
                         to={`user-profile/${user?.uid}`}
-                        className="flex gap-2 p-2 items-center bg-logoBlue rounded-lg shadow-lg hover:opacity-70"
+                        className="flex gap-2 p-2 items-center bg-logoBlue rounded-lg hover:opacity-75 hover:shadow-md"
                         onClick={handleCloseToggle}
                     >
                         {user.photoImgUrl && <img src={user.photoImgUrl ? user.photoImgUrl : undefined} className="w-10 h-10 rounded-full bg-white" alt='user-profile' />}
@@ -88,7 +88,7 @@ const Sidebar = ({ setSidebarVisible, setUser, user }: SidebarProps) => {
                                 setUser(undefined)
                             })
                         }}
-                        className="text-white"
+                        className="text-white hover:opacity-75"
                     >
                         <BiExit fontSize={31} />
                     </button>

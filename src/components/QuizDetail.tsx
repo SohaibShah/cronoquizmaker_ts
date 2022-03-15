@@ -164,14 +164,14 @@ const QuizDetail = () => {
               )}
               {quizDetail.creatorUid === currentUser?.uid && <a
                 href={!quizDetail.private ? `/edit-quiz/${quizDetail.quizId}` : `/edit-quiz/private/${quizDetail.quizId}`}
-                className="gap-1 rounded-md bg-logoBlue py-2 px-3 text-xl flex items-center justify-center text-white opacity-100 hover:opacity-75"
+                className="gap-1 rounded-md bg-logoBlue py-2 px-3 text-xl flex items-center justify-center text-white opacity-100 hover:opacity-75 hover:shadow-md"
               >
                 <GoPencil />
                 <p className='font-bold'>Edit Quiz</p>
               </a>}
               <a
                 href={!quizDetail.private ? `/play-quiz/${quizDetail.quizId}` : `/play-quiz/private/${quizDetail.quizId}`}
-                className="gap-1 rounded-md bg-logoGreen py-2 px-3 text-xl flex items-center justify-center text-dark opacity-100 hover:opacity-75"
+                className="gap-1 rounded-md bg-logoGreen py-2 px-3 text-xl flex items-center justify-center text-dark opacity-100 hover:opacity-75 shadow-md"
               >
                 <BsPlayFill />
                 <p className='font-bold'>Play Quiz</p>
@@ -185,7 +185,7 @@ const QuizDetail = () => {
             </div>
             {quizCreator && <Link
               to={`/user-profile/${quizDetail.creatorUid}`}
-              className='flex gap-2 mt-5 items-center bg-white rounded-lg'
+              className='flex gap-2 mt-5 items-center bg-white rounded-lg opacity-100 hover:opacity-75'
             >
               {quizCreator.photoImgUrl && <img src={quizCreator.photoImgUrl} alt="user-profile" className='w-10 h-10 rounded-full' />}
               <p className="font-bold">{quizCreator.name}</p>
