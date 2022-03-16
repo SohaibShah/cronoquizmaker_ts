@@ -34,7 +34,8 @@ const Sidebar = ({ setSidebarVisible, setUser, user }: SidebarProps) => {
         }
     }, [categoriesValue])
 
-    const handleCloseToggle = () => setSidebarVisible && setSidebarVisible !== undefined ? setSidebarVisible(false) : console.error("setSidebarVisible is null")
+    // const handleCloseToggle = () => setSidebarVisible && setSidebarVisible !== undefined ? setSidebarVisible(false) : console.error("setSidebarVisible is null")
+    const handleCloseToggle = () => setSidebarVisible && setSidebarVisible(false)
 
     return (
         <div className="overflow-auto flex flex-col justify-between bg-appBarBgDark h-full min-w-210 h-scrollbar">

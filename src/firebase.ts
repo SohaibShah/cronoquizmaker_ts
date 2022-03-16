@@ -43,7 +43,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 
 import AppUser from './models/AppUser';
-import { QuestionModel, QuizModel } from './models/QuizModel';
+import { LeaderboardModel, QuestionModel, QuizModel } from './models/QuizModel';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCsXAlktZSjRyTkRwDjy0qiSWt-2GiNm9c",
@@ -60,6 +60,7 @@ const collections = {
     quiz: "Quiz",
     draftQuizzes: "DraftQuizzes",
     data: "Data",
+    leaderboard: "Leaderboard"
 }
 
 const getUserFromId = async (uid: string): Promise<AppUser | null> => {
@@ -93,7 +94,7 @@ const logInWithEmailAndPassword = async (email: string, password: string) => {
     try {
         const res = await signInWithEmailAndPassword(auth, email, password);
         const user = res.user;
-        console.log(`USER: ${JSON.stringify(user)}`)
+        // console.log(`USER: ${JSON.stringify(user)}`)
         const checkIfUserUidExistsQ = query(collection(db, collections.users), where("uid", "==", user?.uid))
         const uidDocs = await getDocs(checkIfUserUidExistsQ)
         if (uidDocs.docs.length > 0) {
@@ -390,6 +391,23 @@ const updateUser = async (name?: string, imageUrl?: string, imageFile?: File) =>
     }
 }
 
+const setOrUpdateLeaderboard = async (uid: string, name: string, score: number, quiz: QuizModel) => {
+    const lbObj: LeaderboardModel = {
+        userId: uid,
+        userName: name,
+        score: score,
+        time: serverTimestamp(),
+    }
+
+    if (!quiz.private) {
+        await setDoc(doc(db, `${collections.quiz}/${quiz.quizId}/${collections.leaderboard}`, uid), lbObj)
+        return;
+    } else {
+        await setDoc(doc(db, `${collections.users}/${quiz.creatorUid}/${collections.draftQuizzes}/${quiz.quizId}/${collections.leaderboard}`, uid), lbObj)
+        return;
+    }
+}
+
 export {
     collections,
     auth,
@@ -411,4 +429,5 @@ export {
     saveQuiz,
     unsaveQuiz,
     updateUser,
+    setOrUpdateLeaderboard,
 }

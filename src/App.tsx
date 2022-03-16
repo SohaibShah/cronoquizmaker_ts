@@ -63,7 +63,8 @@ const App = () => {
       if (uidDocs.docs.length < 1) {
         localStorage.setItem('user', JSON.stringify(appUser))
         setUser(appUser)
-        await setDoc(doc(db, collections.users, user.uid), appUser).then(() => console.log('CREATED NEW APP USER'))
+        await setDoc(doc(db, collections.users, user.uid), appUser)
+        // .then(() => console.log('CREATED NEW APP USER'))
       } else {
         appUser = {
           uid: user ? user.uid : 'undefined',

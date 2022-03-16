@@ -24,3 +24,10 @@ export interface QuizModel {
     questions: QuestionModel[]
     save: string[]
 }
+
+export interface LeaderboardModel {
+    userId: string,
+    userName: string,
+    score: number,
+    time: FieldValue
+}

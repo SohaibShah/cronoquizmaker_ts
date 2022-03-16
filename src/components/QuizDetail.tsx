@@ -31,8 +31,8 @@ const QuizDetail = () => {
   }, [quizId, privateQuizId])
 
   useEffect(() => {
-    console.log(`quizzes: ${quizzes}`)
-    console.log(`quizDetail: ${JSON.stringify(quizDetail)}`)
+    // console.log(`quizzes: ${quizzes}`)
+    // console.log(`quizDetail: ${JSON.stringify(quizDetail)}`)
   }, [quizDetail, quizzes])
 
 
@@ -45,7 +45,6 @@ const QuizDetail = () => {
         currentUser && setAlreadySaved((quizDetailDoc.data() as QuizModel).save.includes(currentUser.uid))
         const creatorDoc = await getDoc(doc(db, collections.users, (quizDetailDoc.data() as QuizModel).creatorUid))
         if (creatorDoc.data()) {
-          console.log(`quizCreator: ${JSON.stringify(creatorDoc.data())}`)
           setQuizCreator(creatorDoc.data() as AppUser)
         }
         if (quizDetail && quizDetail.keywords.length > 0) {
@@ -75,7 +74,6 @@ const QuizDetail = () => {
         currentUser && setAlreadySaved((quizDetailDoc.data() as QuizModel).save.includes(currentUser.uid))
         const creatorDoc = await getDoc(doc(db, collections.users, (quizDetailDoc.data() as QuizModel).creatorUid))
         if (creatorDoc.data()) {
-          console.log(`quizCreator: ${JSON.stringify(creatorDoc.data())}`)
           setQuizCreator(creatorDoc.data() as AppUser)
         }
         if (quizDetail && quizDetail.keywords.length > 0) {

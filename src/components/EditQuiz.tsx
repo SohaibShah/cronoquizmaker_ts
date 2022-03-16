@@ -51,7 +51,6 @@ const EditQuiz = ({ user }: EditQuizProps) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(`params: ${JSON.stringify(param)}`)
     if (param.quizId) {
       setLoading(true)
       getQuiz()
