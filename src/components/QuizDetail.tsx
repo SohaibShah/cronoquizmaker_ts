@@ -86,6 +86,13 @@ const QuizDetail = () => {
         if (creatorDoc.data()) {
           setQuizCreator(creatorDoc.data() as AppUser)
         }
+        const leaderboardQuery = query(collection(db, `${collections.users}/${currentUser.uid}/${collections.draftQuizzes}/${privateQuizId}/${collections.leaderboard}`), orderBy('score', 'desc'))
+        const leaderboardDocs = await getDocs(leaderboardQuery)
+        if (leaderboardDocs.docs.length > 0) {
+          const leaderboard: LeaderboardModel[] = []
+          leaderboardDocs.docs.forEach((doc) => leaderboard.push(doc.data() as LeaderboardModel))
+          setLeaderboardItems(leaderboard)
+        }
         if (quizDetail && quizDetail.keywords.length > 0) {
           var quizzesList: QuizModel[] = []
           for (const keyword of quizDetail.keywords) {
