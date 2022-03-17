@@ -85,6 +85,7 @@ const Quiz = ({ quiz }: QuizProps) => {
             onMouseEnter={() => setQuizHovered(true)}
             onMouseLeave={() => setQuizHovered(false)}
             onTouchStart={() => setQuizHovered(true)}
+            onTouchEnd={() => { setTimeout(() => setQuizHovered(false), 1500) }}
             onClick={() => quiz.private ? navigate(`/quiz-detail/private/${quiz.quizId}`) : navigate(`/quiz-detail/${quiz.quizId}`)}
             className="relative cursor-pointer w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
           >

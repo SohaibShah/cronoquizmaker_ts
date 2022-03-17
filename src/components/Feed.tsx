@@ -26,7 +26,7 @@ const Feed = () => {
 
   useEffect(() => {
     if (categoryId) {
-      setFeedQuery(query(collection(db, collections.quiz), where('keywords', 'array-contains', categoryId), orderBy('createdAt', 'desc')))
+      setFeedQuery(query(collection(db, collections.quiz), where('keywords', 'array-contains', categoryId.toLowerCase()), orderBy('createdAt', 'desc')))
     }
     if (!categoryId) {
       setFeedQuery(query(collection(db, collections.quiz), orderBy("createdAt", 'desc')))

@@ -1,15 +1,16 @@
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore'
-import React, { useState, useEffect } from 'react'
+import { collection, doc, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
 import { BsBookmarkPlus, BsFillBookmarkCheckFill, BsFillEmojiDizzyFill, BsPlayFill } from 'react-icons/bs'
 import { GoPencil } from 'react-icons/go'
 import { Link, useParams } from 'react-router-dom'
 import { auth, collections, db, saveQuiz, unsaveQuiz } from '../firebase'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import AppUser from '../models/AppUser'
-import { QuizModel } from '../models/QuizModel'
-import { fetchUser } from '../utils/fetchUser'
+import { LeaderboardModel, QuizModel } from '../models/QuizModel'
 import MasonryLayout from './MasonryLayout'
 import Spinner from './Spinner'
 import { useMediaQuery } from 'react-responsive'
+import { AiFillStar } from 'react-icons/ai'
 
 const QuizDetail = () => {
   const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1224px)' })
@@ -17,6 +18,7 @@ const QuizDetail = () => {
   const { quizId, privateQuizId } = useParams()
 
   const [quizzes, setQuizzes] = useState<QuizModel[] | undefined>(undefined)
+  const [leaderboardItems, setLeaderboardItems] = useState<LeaderboardModel[]>()
   const [quizDetail, setQuizDetail] = useState<QuizModel | undefined>()
   const [quizCreator, setQuizCreator] = useState<AppUser | undefined>()
   const currentUser = auth.currentUser
@@ -47,6 +49,13 @@ const QuizDetail = () => {
         const creatorDoc = await getDoc(doc(db, collections.users, (quizDetailDoc.data() as QuizModel).creatorUid))
         if (creatorDoc.data()) {
           setQuizCreator(creatorDoc.data() as AppUser)
+        }
+        const leaderboardQuery = query(collection(db, `${collections.quiz}/${quizId}/${collections.leaderboard}`), orderBy('score', 'desc'))
+        const leaderboardDocs = await getDocs(leaderboardQuery)
+        if (leaderboardDocs.docs.length > 0) {
+          const leaderboard: LeaderboardModel[] = []
+          leaderboardDocs.docs.forEach((doc) => leaderboard.push(doc.data() as LeaderboardModel))
+          setLeaderboardItems(leaderboard)
         }
         if (quizDetail && quizDetail.keywords.length > 0) {
           var quizzesList: QuizModel[] = []
@@ -191,8 +200,8 @@ const QuizDetail = () => {
             </Link>}
             <div className='flex gap-1 mt-5 items-center'>
               {quizDetail.keywords.map((keyword, keywordIndex) => <a href={`/category/${keyword}`} className='opacity-60 hover:opacity-90'>
-               {!isMobileOrTablet && keywordIndex < 6 && <p>{`#${keyword}`}</p>}
-               {isMobileOrTablet && keywordIndex < 3 && <p>{`#${keyword}`}</p>}
+                {!isMobileOrTablet && keywordIndex < 6 && <p>{`#${keyword}`}</p>}
+                {isMobileOrTablet && keywordIndex < 3 && <p>{`#${keyword}`}</p>}
               </a>)}
             </div>
             {quizDetail.save.length > 0 && <div className='flex gap-2 items-center mt-5'>
@@ -202,14 +211,87 @@ const QuizDetail = () => {
           </div>
         </div>
       )}
-      {quizzes && quizzes.length > 0 && (
+      {leaderboardItems && leaderboardItems.length > 0 && (
+        <h2 className="text-center font-bold text-2xl mt-8 mb-4">
+          Leaderboard
+        </h2>
+      )}
+      {leaderboardItems && (
+        <div className="rounded-xl flex flex-col m-auto bg-white" style={{ maxWidth: '1500px' }}>
+          <div className="w-full flex m-2">
+            <div className="flex flex-1 items-center justify-start p-2">
+            </div>
+            <div className="flex flex-[6_6_0%] items-center justify-start p-2 text-lg font-bold">
+              <p>Name</p>
+            </div>
+            <div className="flex flex-1 items-center justify-center text-lg font-bold">
+              <p>Score</p>
+            </div>
+          </div>
+          {leaderboardItems.length > 0 && (
+            <div className="w-full flex m-2" key={leaderboardItems[0].userId}>
+              <div className="flex flex-1 items-center justify-start p-2">
+                <AiFillStar color='gold' fontSize={28} />
+              </div>
+              <div className="flex flex-[6_6_0%] items-center justify-start p-2 text-lg">
+                <p>{`1. ${leaderboardItems[0].userName}`}</p>
+              </div>
+              <div className="flex flex-1 items-center justify-center text-lg">
+                <p>{leaderboardItems[0].score}</p>
+              </div>
+            </div>
+          )}
+          {leaderboardItems.length > 1 && (
+            <div className="w-full flex m-2" key={leaderboardItems[1].userId}>
+              <div className="flex flex-1 items-center justify-start p-2">
+                <AiFillStar color='silver' fontSize={28} />
+              </div>
+              <div className="flex flex-[6_6_0%] items-center justify-start p-2 text-lg">
+                <p>{`2. ${leaderboardItems[1].userName}`}</p>
+              </div>
+              <div className="flex flex-1 items-center justify-center text-lg">
+                <p>{leaderboardItems[1].score}</p>
+              </div>
+            </div>
+          )}
+          {leaderboardItems.length > 2 && (
+            <div className="w-full flex m-2" key={leaderboardItems[2].userId}>
+              <div className="flex flex-1 items-center justify-start p-2">
+                <AiFillStar color='#b07D57' fontSize={28} />
+              </div>
+              <div className="flex flex-[6_6_0%] items-center justify-start p-2 text-lg">
+                <p>{`3. ${leaderboardItems[2].userName}`}</p>
+              </div>
+              <div className="flex flex-1 items-center justify-center text-lg">
+                <p>{leaderboardItems[2].score}</p>
+              </div>
+            </div>
+          )}
+          {leaderboardItems.length > 3 && leaderboardItems.map((item, index) => {
+            if (index > 2) return (
+              <div className="w-full flex m-2" key={item.userId}>
+                <div className="flex flex-1 items-center justify-start p-2">
+
+                </div>
+                <div className="flex flex-[6_6_0%] items-center justify-start p-2 text-lg">
+                  <p>{`${index + 1}. ${item.userName}`}</p>
+                </div>
+                <div className="flex flex-1 items-center justify-center text-lg">
+                  <p>{item.score}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+      {/* {quizzes && quizzes.length > 0 && (
         <h2 className="text-center font-bold text-2xl mt-8 mb-4">
           More like this
         </h2>
       )}
       {quizzes && quizzes.length > 0 && (
         <MasonryLayout quizzes={quizzes} />
-      )}
+      )} */}
     </>
   )
 }
