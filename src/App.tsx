@@ -13,7 +13,7 @@ import { fetchUser } from './utils/fetchUser';
 import { usePrevious } from './utils/functions'
 import AppUser from './models/AppUser';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { addDoc, collection, doc, getDocs, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
 
 const App = () => {
 
@@ -29,55 +29,42 @@ const App = () => {
     if (user) {
       checkUser(user)
     } else {
+      localStorage.removeItem('user')
       navigate(`/login/${location.pathname ? location.pathname.slice(1).replaceAll('/', '>') : targetLoc !== undefined ? targetLoc?.slice(1).replaceAll('/', '>') : 'undefined'}`, { replace: true })
     }
   }, [localUser, user])
 
   const checkUser = async (user: User) => {
-    const userUidQ = query(collection(db, collections.users), where("uid", "==", user?.uid))
-    const uidDocs = await getDocs(userUidQ)
-    const appUserData = uidDocs.docs[0].data() as AppUser
+    const uidDoc = await getDoc(doc(db, collections.users, user.uid))
+    const appUserData = uidDoc.data() as AppUser
 
-    var appUser: AppUser = {
-      uid: user ? user.uid : 'undefined',
-      name: appUserData.name ?? user.displayName ?? null,
-      email: user.email ?? appUserData.email ?? null,
-      photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-      dateAccCreated: serverTimestamp(),
-      publishedQuizzes: appUserData.publishedQuizzes ?? [],
-      savedQuizzes: appUserData.savedQuizzes ?? []
-    }
-    if (localUser && localUser.uid === appUser.uid && localUser.email === appUser.email && localUser.photoImgUrl === appUser.photoImgUrl && uidDocs.docs.length > 0) {
-      appUser = {
-        uid: user ? user.uid : 'undefined',
-        name: appUserData.name ?? user.displayName ?? null,
-        email: user.email ?? appUserData.email ?? null,
-        photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-        dateAccCreated: serverTimestamp(),
-        publishedQuizzes: appUserData.publishedQuizzes ?? [],
-        savedQuizzes: appUserData.savedQuizzes ?? []
+    if (appUserData) {
+      const appUser: AppUser = {
+        uid: user.uid,
+        name: appUserData.name ?? user.displayName ?? 'undefined',
+        email: appUserData.email,
+        dateAccCreated: appUserData.dateAccCreated,
+        publishedQuizzes: appUserData.publishedQuizzes,
+        savedQuizzes: appUserData.savedQuizzes,
+        photoImgUrl: appUserData.photoImgUrl ?? user.photoURL
       }
-      navigate(`${location.pathname}`)
-    } else {
-
-      if (uidDocs.docs.length < 1) {
-        localStorage.setItem('user', JSON.stringify(appUser))
-        setUser(appUser)
-        await setDoc(doc(db, collections.users, user.uid), appUser)
-        // .then(() => console.log('CREATED NEW APP USER'))
-      } else {
-        appUser = {
-          uid: user ? user.uid : 'undefined',
-          name: appUserData.name ?? user.displayName ?? null,
-          email: user.email ?? appUserData.email ?? null,
-          photoImgUrl: appUserData.photoImgUrl ?? user.photoURL ?? null,
-          dateAccCreated: serverTimestamp(),
-          publishedQuizzes: appUserData.publishedQuizzes ?? [],
-          savedQuizzes: appUserData.savedQuizzes ?? []
-        }
+      if (localUser !== appUser || localUser === undefined) {
         localStorage.setItem('user', JSON.stringify(appUser))
         setUser(fetchUser())
       }
+    } else {
+      const appUser: AppUser = {
+        uid: user.uid,
+        name: user.displayName,
+        email: user.email,
+        dateAccCreated: serverTimestamp(),
+        publishedQuizzes: [],
+        savedQuizzes: [],
+        photoImgUrl: user.photoURL
+      }
+      await setDoc(doc(db, collections.users, user.uid), appUser)
+      localStorage.setItem('user', JSON.stringify(appUser))
+      setUser(fetchUser())
     }
   }
 

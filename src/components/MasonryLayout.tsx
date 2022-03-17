@@ -13,7 +13,7 @@ const breakpointObj = {
 }
 
 export interface MasonryLayoutProps {
-  quizzes: QuizModel[] | null
+  quizzes: QuizModel[] | null | undefined
 }
 
 const MasonryLayout = ({ quizzes }: MasonryLayoutProps) => {

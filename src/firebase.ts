@@ -8,9 +8,6 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     signOut,
-    User,
-    getRedirectResult,
-    onAuthStateChanged
 } from 'firebase/auth'
 import {
     getFirestore,
@@ -18,18 +15,14 @@ import {
     getDocs,
     collection,
     where,
-    addDoc,
     serverTimestamp,
     setDoc,
     doc,
-    orderBy,
     getDoc,
     updateDoc,
     arrayUnion,
     arrayRemove,
-    FieldValue,
     deleteDoc,
-    FirestoreSettings
 } from 'firebase/firestore'
 import {
     getStorage,

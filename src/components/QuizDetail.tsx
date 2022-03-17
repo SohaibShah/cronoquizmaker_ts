@@ -9,9 +9,10 @@ import { QuizModel } from '../models/QuizModel'
 import { fetchUser } from '../utils/fetchUser'
 import MasonryLayout from './MasonryLayout'
 import Spinner from './Spinner'
+import { useMediaQuery } from 'react-responsive'
 
 const QuizDetail = () => {
-  const user: AppUser | undefined = fetchUser()
+  const isMobileOrTablet = useMediaQuery({ query: '(max-width: 1224px)' })
 
   const { quizId, privateQuizId } = useParams()
 
@@ -162,14 +163,14 @@ const QuizDetail = () => {
               )}
               {quizDetail.creatorUid === currentUser?.uid && <a
                 href={!quizDetail.private ? `/edit-quiz/${quizDetail.quizId}` : `/edit-quiz/private/${quizDetail.quizId}`}
-                className="gap-1 rounded-md bg-logoBlue py-2 px-3 text-xl flex items-center justify-center text-white opacity-100 hover:opacity-75 hover:shadow-md"
+                className="gap-1 rounded-md bg-logoBlue py-2 px-3 text-md md:text-xl flex items-center justify-center text-white opacity-100 hover:opacity-75 hover:shadow-md"
               >
                 <GoPencil />
                 <p className='font-bold'>Edit Quiz</p>
               </a>}
               <a
                 href={!quizDetail.private ? `/play-quiz/${quizDetail.quizId}` : `/play-quiz/private/${quizDetail.quizId}`}
-                className="gap-1 rounded-md bg-logoGreen py-2 px-3 text-xl flex items-center justify-center text-dark opacity-100 hover:opacity-75 shadow-md"
+                className="gap-1 rounded-md bg-logoGreen py-2 px-3 text-md md:text-xl flex items-center justify-center text-dark opacity-100 hover:opacity-75 shadow-md"
               >
                 <BsPlayFill />
                 <p className='font-bold'>Play Quiz</p>
@@ -189,8 +190,9 @@ const QuizDetail = () => {
               <p className="font-bold">{quizCreator.name}</p>
             </Link>}
             <div className='flex gap-1 mt-5 items-center'>
-              {quizDetail.keywords.map((keyword) => <a href={`/category/${keyword}`} className='opacity-60 hover:opacity-90'>
-                <p>{`#${keyword}`}</p>
+              {quizDetail.keywords.map((keyword, keywordIndex) => <a href={`/category/${keyword}`} className='opacity-60 hover:opacity-90'>
+               {!isMobileOrTablet && keywordIndex < 6 && <p>{`#${keyword}`}</p>}
+               {isMobileOrTablet && keywordIndex < 3 && <p>{`#${keyword}`}</p>}
               </a>)}
             </div>
             {quizDetail.save.length > 0 && <div className='flex gap-2 items-center mt-5'>

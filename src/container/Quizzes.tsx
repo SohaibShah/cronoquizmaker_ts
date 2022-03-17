@@ -3,7 +3,7 @@ import { Routes, Route, } from 'react-router-dom'
 
 import { Feed, QuizDetail, EditQuiz } from '../components'
 import Navbar from '../components/Navbar'
-import PlayQuiz from '../components/PlayQuiz'
+import Search from '../components/Search'
 import AppUser from '../models/AppUser'
 
 export interface QuizzesProps {
@@ -29,7 +29,7 @@ export const Quizzes = ({ user }: QuizzesProps) => {
           <Route path='/edit-quiz/private' element={<EditQuiz user={user && user} />} />
           <Route path='/edit-quiz/private/:privateQuizId' element={<EditQuiz user={user && user} />} />
           
-          {/* <Route path='/search' element={<Search searchTerm={searchTerm} />} /> */}
+          <Route path='/search' element={<Search searchTerm={searchTerm} />} />
         </Routes>
       </div>
     </div>

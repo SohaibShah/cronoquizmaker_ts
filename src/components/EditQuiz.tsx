@@ -95,7 +95,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
   }
 
   const saveAndPublishQuiz = async () => {
-    if (title !== '' && desc !== '' && keywords.length > 0 && questions.length > 0 && (imageAsset !== null || existingImageUrl !== '')) {
+    if (title !== '' && desc !== '' && keywords.length > 0 && questions.length > 0 && (imageAsset !== null || existingImageUrl !== '') && user) {
       if (imageAsset) {
         const { type, name } = imageAsset
 
@@ -103,11 +103,11 @@ const EditQuiz = ({ user }: EditQuizProps) => {
           setWrongImageType(false)
           setLoading(true)
           if (quizId) {
-            await createOrUpdateAndPublishQuiz(title, desc, keywords, questions, undefined, quizId, imageAsset).then((quiz) => {
+            await createOrUpdateAndPublishQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, undefined, quizId, imageAsset).then((quiz) => {
               navigate(`/quiz-detail/${quiz.quizId}`)
             })
           } else {
-            await createOrUpdateAndPublishQuiz(title, desc, keywords, questions, undefined, undefined, imageAsset).then((quiz) => {
+            await createOrUpdateAndPublishQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, undefined, undefined, imageAsset).then((quiz) => {
               navigate(`/quiz-detail/${quiz.quizId}`)
             })
           }
@@ -118,11 +118,11 @@ const EditQuiz = ({ user }: EditQuizProps) => {
       } else if (existingImageUrl) {
         setLoading(true)
         if (quizId) {
-          await createOrUpdateAndPublishQuiz(title, desc, keywords, questions, existingImageUrl, quizId, undefined).then((quiz) => {
+          await createOrUpdateAndPublishQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, existingImageUrl, quizId, undefined).then((quiz) => {
             navigate(`/quiz-detail/${quiz.quizId}`)
           })
         } else {
-          await createOrUpdateAndPublishQuiz(title, desc, keywords, questions, existingImageUrl, undefined, undefined).then((quiz) => {
+          await createOrUpdateAndPublishQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, existingImageUrl, undefined, undefined).then((quiz) => {
             navigate(`/quiz-detail/${quiz.quizId}`)
           })
         }
@@ -136,7 +136,7 @@ const EditQuiz = ({ user }: EditQuizProps) => {
   }
 
   const saveAsPrivateQuiz = async () => {
-    if (title !== '' && desc !== '' && keywords.length > 0 && questions.length > 0 && (imageAsset !== null || existingImageUrl !== '')) {
+    if (title !== '' && desc !== '' && keywords.length > 0 && questions.length > 0 && (imageAsset !== null || existingImageUrl !== '') && user) {
       if (imageAsset) {
         const { type, name } = imageAsset
 
@@ -144,11 +144,11 @@ const EditQuiz = ({ user }: EditQuizProps) => {
           setWrongImageType(false)
           setLoading(true)
           if (quizId) {
-            await createOrUpdateDraftQuiz(title, desc, keywords, questions, undefined, quizId, imageAsset).then((quiz) => {
+            await createOrUpdateDraftQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, undefined, quizId, imageAsset).then((quiz) => {
               navigate(`/quiz-detail/private/${quiz.quizId}`)
             })
           } else {
-            await createOrUpdateDraftQuiz(title, desc, keywords, questions, undefined, undefined, imageAsset).then((quiz) => {
+            await createOrUpdateDraftQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, undefined, undefined, imageAsset).then((quiz) => {
               navigate(`/quiz-detail/private/${quiz.quizId}`)
             })
           }
@@ -159,11 +159,11 @@ const EditQuiz = ({ user }: EditQuizProps) => {
       } else if (existingImageUrl) {
         setLoading(true)
         if (quizId) {
-          await createOrUpdateDraftQuiz(title, desc, keywords, questions, existingImageUrl, quizId, undefined).then((quiz) => {
+          await createOrUpdateDraftQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, existingImageUrl, quizId, undefined).then((quiz) => {
             navigate(`/quiz-detail/private/${quiz.quizId}`)
           })
         } else {
-          await createOrUpdateDraftQuiz(title, desc, keywords, questions, existingImageUrl, undefined, undefined).then((quiz) => {
+          await createOrUpdateDraftQuiz(title, desc, [...keywords, ...(user.name ?? `anonymous`).toLowerCase().replaceAll('.', '').replaceAll(',', '').split(' '), ...title.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `), ...desc.toLowerCase().replaceAll('.', '').replaceAll(',', '').split(` `)], questions, existingImageUrl, undefined, undefined).then((quiz) => {
             navigate(`/quiz-detail/private/${quiz.quizId}`)
           })
         }
